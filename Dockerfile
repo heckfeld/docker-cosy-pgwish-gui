@@ -12,9 +12,10 @@ RUN delgroup operator && \
             -d /home/operator -m \
             -s /bin/bash \
             -u 160 -g users operator
+
+RUN mkdir -p /home/operator/.ssh
 COPY id_rsa.pub /home/operator/.ssh/authorized_keys
-RUN mkdir -p /home/operator/.ssh && \
-    chown -R operator:users \
+RUN chown -R operator:users \
       /home/operator/.ssh
 EXPOSE 22
 ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
