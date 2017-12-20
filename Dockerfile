@@ -2,6 +2,9 @@
 #
 FROM docker-cosy-pgwish
 
+EXPOSE 22
+EXPOSE 8444
+
 RUN apt-get update && \
     apt-get install -y openssl ssh x11-apps && \
     rm -rf /var/lib/apt/lists/*
@@ -18,5 +21,4 @@ COPY id_rsa.pub /home/operator/.ssh/authorized_keys
 RUN chown -R operator:users \
       /home/operator/.ssh
 RUN chmod og-w /home/operator/.ssh/authorized_keys
-EXPOSE 22
-ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
+ENTRYPOINT [ "/usr/sbin/sshd", "-D", "-f","/etc/ssh/sshd_config" ]
