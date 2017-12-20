@@ -17,6 +17,6 @@ RUN mkdir -p /home/operator/.ssh
 COPY id_rsa.pub /home/operator/.ssh/authorized_keys
 RUN chown -R operator:users \
       /home/operator/.ssh
-RUN chmod og-r /home/operator/.ssh/authorized_keys
+RUN chmod og-w /home/operator/.ssh/authorized_keys
 EXPOSE 22
 ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
