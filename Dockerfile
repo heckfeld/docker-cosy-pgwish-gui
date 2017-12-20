@@ -1,16 +1,20 @@
-# Firefox over VNC
+# Start COSY QBL GUI
 #
-# VERSION               0.3
-
 FROM docker-cosy-pgwish
 
-# Install vnc, xvfb in order to create a 'fake' display and firefox
-RUN apt-get update && apt-get install -y x11vnc xvfb
-RUN mkdir ~/.vnc
-# Setup a password
-RUN x11vnc -storepasswd 12345 ~/.vnc/passwd
-# Autostart firefox (might not be the best way, but it does the trick)
-RUN bash -c 'echo "/usr/local/bin/pgwish" >> /.bashrc'
-
-EXPOSE 5900
-CMD    ["x11vnc", "-forever", "-usepw", "-create"]
+RUN apt-get update && \
+    apt-get install -y openssl ssh x11-apps && \
+    rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /var/run/sshd
+RUN update-rc.d ssh disable
+RUN delgroup operator && \
+    useradd -c "COSY Operator" \
+            -d /home/operator -m \
+            -s /bin/bash \
+            -u 160 -g users operator
+COPY id_rsa.pub /home/operator/.ssh/authorized_keys
+RUN mkdir -p /home/operator/.ssh && \
+    chown -R operator:users \
+      /home/operator/.ssh
+EXPOSE 22
+ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
