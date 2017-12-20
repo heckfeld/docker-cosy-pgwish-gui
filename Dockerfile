@@ -21,4 +21,4 @@ COPY id_rsa.pub /home/operator/.ssh/authorized_keys
 RUN chown -R operator:users \
       /home/operator/.ssh
 RUN chmod og-w /home/operator/.ssh/authorized_keys
-ENTRYPOINT [ "/usr/sbin/sshd", "-D", "-f","/etc/ssh/sshd_config", "-E", "/tmp/sshd.log" ]
+ENTRYPOINT [ "/usr/sbin/sshd", "-D", "-f","/etc/ssh/sshd_config", "-E", "/tmp/sshd.log", "-4" ]
