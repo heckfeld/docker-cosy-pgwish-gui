@@ -1,6 +1,6 @@
 # Start COSY QBL GUI
 #
-FROM docker-cosy-pgwish
+FROM heckfeld/docker-cosy-pgwish
 
 EXPOSE 22
 EXPOSE 8444
