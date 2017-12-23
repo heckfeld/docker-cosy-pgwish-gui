@@ -18,7 +18,6 @@ RUN delgroup operator && \
 
 RUN mkdir -p /home/operator/.ssh
 COPY id_rsa.pub /home/operator/.ssh/authorized_keys
-RUN chown -R operator:users \
-      /home/operator/.ssh
+RUN chown -R operator:users /home/operator
 RUN chmod og-w /home/operator/.ssh/authorized_keys
 ENTRYPOINT [ "/usr/sbin/sshd", "-D", "-f","/etc/ssh/sshd_config", "-E", "/tmp/sshd.log", "-4" ]
