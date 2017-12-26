@@ -1,5 +1,11 @@
 
-Di 19. Dez 11:55:19 CET 2017
+# docker-cosy-pgwish-gui
 
-docker build -t docker-cosy-qbl ./
-docker run -p 8022:22 --name qbl -d docker-cosy-qbl
+basis für die GUIS
+
+	baut auf docker-cosy-pgish auf
+	benutzt addr-server
+	benutzt cosy-setup
+
+	docker build -t docker-cosy-pgwish-gui ./
+	docker run -p 8022:22 --name qbl -d docker-cosy-pgwish-gui
